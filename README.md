@@ -1,4 +1,11 @@
-# 🔥 OffsetX — Buffer Overflow Offset Finder
+#  OffsetX - Buffer Overflow Offset Finder
+
+![Stars](https://img.shields.io/github/stars/alhamrizvi-cloud/OffsetX?style=for-the-badge)
+![Forks](https://img.shields.io/github/forks/alhamrizvi-cloud/OffsetX?style=for-the-badge)
+![Python](https://img.shields.io/badge/python-3.x-blue?style=for-the-badge)
+![CTF](https://img.shields.io/badge/CTF-binary%20exploitation-red?style=for-the-badge)
+![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
+
 
 <img width="793" height="674" alt="image" src="https://github.com/user-attachments/assets/e3552fbd-3164-4309-94a6-1075ec552ced" />
 
@@ -18,6 +25,8 @@ with a single, automated tool for both **local** and **remote** targets.
 No pip dependencies needed for core features.
 
 ```bash
+git clone https://github.com/alhamrizvi-cloud/OffsetX
+cd  OffsetX
 chmod +x offsetx.py
 sudo mv offsetx.py /usr/local/bin/offsetx
 
@@ -39,8 +48,7 @@ Step-by-step: generate → send → enter EIP → get offset.
  offsetx generate -l 2000
  offsetx generate -l 3000 -o pattern.bin
 ```
-
----
+<img width="793" height="590" alt="image" src="https://github.com/user-attachments/assets/b1c0c80e-ec97-4899-957c-262473d2b92c" />
 
 ### Find offset from crash value
 ```bash
@@ -51,17 +59,18 @@ python3 offsetx.py find 41424344
 # 64-bit (RIP)
 python3 offsetx.py find 0x4141416141414162 --bits 64 -l 5000
 ```
+<img width="793" height="649" alt="image" src="https://github.com/user-attachments/assets/2fc85f25-6c75-4ac0-8d85-35e8cb9d5c8b" />
 
----
 
 ### Auto-crash with GDB (local binary)
 ```bash
 python3 offsetx.py auto --binary ./vuln --length 2000
 python3 offsetx.py auto --binary ./vuln --length 2000 --args "{pattern}"
 ```
-Launches the binary under GDB, sends the pattern, captures EIP/RIP automatically.
 
----
+<img width="793" height="639" alt="image" src="https://github.com/user-attachments/assets/309aabb4-60ce-44f7-b0e6-abd8d202f7f9" />
+
+Launches the binary under GDB, sends the pattern, captures EIP/RIP automatically.
 
 ### Remote target
 ```bash
@@ -74,12 +83,11 @@ python3 offsetx.py remote --host 10.10.10.1 --port 21 -l 3000 --prefix "USER "
 # With suffix
 python3 offsetx.py remote --host 192.168.1.5 --port 9999 -l 2000 --suffix "\r\n"
 ```
+
 After crash, note the EIP/RIP in your debugger, then:
 ```bash
 python3 offsetx.py find <EIP_VALUE> -l 2000
 ```
-
----
 
 ## Library usage in your exploit scripts
 
@@ -103,8 +111,6 @@ print(f"[+] Offset: {offset}")
 payload = b"A" * offset + b"\xef\xbe\xad\xde" + b"\x90" * 100 + shellcode
 ```
 
----
-
 ## Verify your offset
 
 Once you have the offset:
@@ -112,8 +118,6 @@ Once you have the offset:
 python3 -c "print('A'*<OFFSET> + 'B'*4 + 'C'*100)"
 ```
 EIP should show `0x42424242` (BBBB) — perfect control.
-
----
 
 ## Workflow summary
 
@@ -132,3 +136,13 @@ python3 test_offsetx.py
 ```
 
 > **For educational/CTF/authorized pentesting purposes only.**
+
+## 🙏 Credits
+
+Built with inspiration from:
+- Claude (Anthropic) — design + tooling ideas
+- pwntools — exploitation workflows & docs
+- CTF community writeups — real-world exploit techniques
+
+Have a nice day Exploring my tool !
+- Alham Rizvi
